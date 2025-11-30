@@ -1,0 +1,26 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import Layout from "@/layouts/default.astro";
+
+export async function getStaticPaths() {
+	const recipes = await getCollection("recipes");
+
+	return recipes.map((recipe) => ({
+		params: { slug: recipe.id },
+		props: { recipe: recipe.id },
+	}));
+}
+
+const { recipe: slug } = Astro.props;
+const recipe = await getEntry("recipes", slug);
+
+if (!recipe) {
+	throw new Error(`Recipe not found: ${slug}`);
+}
+
+const { Content } = await render(recipe);
+---
+
+<Layout metadata={recipe.data.metadata}>
+  <Content />
+</Layout>
