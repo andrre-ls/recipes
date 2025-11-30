@@ -1,0 +1,12 @@
+---
+import { PATH_BASE } from "@/constants";
+
+type Props = astroHTML.JSX.AnchorHTMLAttributes;
+const { href, ...props } = Astro.props;
+
+const transformedHref = `${PATH_BASE}/${href}`.replace(/\/\/+/g, "/");
+---
+
+<a href={transformedHref} {...props}>
+  <slot />
+</a>

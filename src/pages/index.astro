@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import Link from "@/components/link.astro";
 import Layout from "@/layouts/default.astro";
 
 const recipes = await getCollection("recipes");
@@ -11,7 +12,7 @@ const recipes = await getCollection("recipes");
     {
       recipes.map((recipe) => (
         <li>
-          <a href={`/recipes/${recipe.id}/`}>{recipe.data.metadata.title}</a>
+          <Link href={`/recipes/${recipe.id}/`}>{recipe.data.metadata.title}</Link>
         </li>
       ))
     }
